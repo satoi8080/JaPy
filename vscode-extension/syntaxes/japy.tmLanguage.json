@@ -1,0 +1,219 @@
+{
+  "name": "JaPy",
+  "scopeName": "source.japy",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#builtins"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#function-def"
+    },
+    {
+      "include": "#class-def"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.japy",
+          "begin": "#",
+          "end": "$",
+          "patterns": [
+            {
+              "name": "constant.character.escape.japy",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.japy",
+          "begin": "\"\"\"",
+          "end": "\"\"\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.japy",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.triple.japy",
+          "begin": "'''",
+          "end": "'''",
+          "patterns": [
+            {
+              "name": "constant.character.escape.japy",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.japy",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.japy",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.japy",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.japy",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.japy",
+          "match": "\\b\\d+\\.\\d+([eE][+-]?\\d+)?\\b"
+        },
+        {
+          "name": "constant.numeric.integer.japy",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.japy",
+          "match": "\\b(イフ|エリフ|エルス|フォー|ホワイル|ブレーク|コンティニュー|パス|リターン|イールド)\\b"
+        },
+        {
+          "name": "keyword.operator.logical.japy",
+          "match": "\\b(アンド|オア|ノット|イン|イズ)\\b"
+        },
+        {
+          "name": "keyword.other.japy",
+          "match": "\\b(デフ|クラス|インポート|フロム|アズ|グローバル|ノンローカル|デル|ウィズ|アサート|エイシンク|アウェイト)\\b"
+        },
+        {
+          "name": "keyword.control.exception.japy",
+          "match": "\\b(トライ|エクセプト|ファイナリー|レイズ)\\b"
+        },
+        {
+          "name": "constant.language.japy",
+          "match": "\\b(トゥルー|フォルス|ノン)\\b"
+        }
+      ]
+    },
+    "builtins": {
+      "patterns": [
+        {
+          "name": "support.function.builtin.japy",
+          "match": "\\b(プリント|インプット|ヘルプ|レン|サム|マックス|ミン|ソーテッド|リバースド|ディル|オール|エニー|マップ|フィルター|ジップ|スライス|イター|ネクスト|エイター|エイネクスト|レンジ|エービーエス|パウ|ラウンド|ディブモッド|イズインスタンス|イズサブクラス|ハズアトリブ|ゲットアトリブ|セットアトリブ|デルアトリブ|アスキー|ビン|レップ|フォーマット|ヘックス|オクト|キャラ|オーアールディー|コーラブル|コンパイル|エバル|エグゼック|グローバルズ|ハッシュ|アイディー|ローカルズ|オープン|バーズ|ブレークポイント|コピーライト|クレジッツ|エグジット|ライセンス|クイット)\\b"
+        },
+        {
+          "name": "support.type.japy",
+          "match": "\\b(ブール|イント|フロート|ストリング|リスト|タプル|ディクト|セット|フローズンセット|バイツ|バイトアレイ|コンプレックス|エニュメレート|メモリビュー|オブジェクト|タイプ|スーパー|プロパティ|クラスメソッド|スタティックメソッド)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.arithmetic.japy",
+          "match": "\\+|\\-|\\*|\\*\\*|\\/|\\/\\/|\\%"
+        },
+        {
+          "name": "keyword.operator.comparison.japy",
+          "match": "==|!=|<|>|<=|>="
+        },
+        {
+          "name": "keyword.operator.assignment.japy",
+          "match": "=|\\+=|\\-=|\\*=|\\/=|\\%=|\\*\\*=|\\/\\/="
+        }
+      ]
+    },
+    "function-def": {
+      "patterns": [
+        {
+          "name": "meta.function.japy",
+          "begin": "\\b(デフ)\\s+([\\u3040-\\u309F\\u30A0-\\u30FF\\u4E00-\\u9FAF\\w]+)\\s*\\(",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.other.japy"
+            },
+            "2": {
+              "name": "entity.name.function.japy"
+            }
+          },
+          "end": ":",
+          "patterns": [
+            {
+              "include": "#function-parameters"
+            }
+          ]
+        }
+      ]
+    },
+    "class-def": {
+      "patterns": [
+        {
+          "name": "meta.class.japy",
+          "begin": "\\b(クラス)\\s+([\\u3040-\\u309F\\u30A0-\\u30FF\\u4E00-\\u9FAF\\w]+)",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.other.japy"
+            },
+            "2": {
+              "name": "entity.name.class.japy"
+            }
+          },
+          "end": ":",
+          "patterns": [
+            {
+              "include": "#inheritance"
+            }
+          ]
+        }
+      ]
+    },
+    "function-parameters": {
+      "patterns": [
+        {
+          "name": "variable.parameter.japy",
+          "match": "[\\u3040-\\u309F\\u30A0-\\u30FF\\u4E00-\\u9FAF\\w]+"
+        }
+      ]
+    },
+    "inheritance": {
+      "patterns": [
+        {
+          "name": "entity.other.inherited-class.japy",
+          "match": "[\\u3040-\\u309F\\u30A0-\\u30FF\\u4E00-\\u9FAF\\w]+"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "name": "JaPy Dark",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#1e1e1e",
+    "editor.foreground": "#d4d4d4",
+    "editorLineNumber.foreground": "#858585",
+    "editorLineNumber.activeForeground": "#c6c6c6"
+  },
+  "tokenColors": [
+    {
+      "name": "Comment",
+      "scope": [
+        "comment",
+        "comment.line",
+        "comment.line.number-sign",
+        "comment.line.number-sign.japy",
+        "punctuation.definition.comment"
+      ],
+      "settings": {
+        "fontStyle": "italic",
+        "foreground": "#6A9955"
+      }
+    },
+    {
+      "name": "JaPy Keywords",
+      "scope": [
+        "keyword",
+        "keyword.control",
+        "keyword.control.japy",
+        "keyword.operator.logical",
+        "keyword.operator.logical.japy",
+        "keyword.other",
+        "keyword.other.japy",
+        "keyword.control.exception",
+        "keyword.control.exception.japy"
+      ],
+      "settings": {
+        "foreground": "#C586C0",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "JaPy Constants",
+      "scope": [
+        "constant.language",
+        "constant.language.japy"
+      ],
+      "settings": {
+        "foreground": "#569CD6",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "JaPy Built-in Functions",
+      "scope": [
+        "support.function",
+        "support.function.builtin",
+        "support.function.builtin.japy"
+      ],
+      "settings": {
+        "foreground": "#DCDCAA"
+      }
+    },
+    {
+      "name": "JaPy Built-in Types",
+      "scope": [
+        "support.type",
+        "support.type.japy"
+      ],
+      "settings": {
+        "foreground": "#4EC9B0"
+      }
+    },
+    {
+      "name": "String",
+      "scope": [
+        "string",
+        "string.quoted",
+        "string.quoted.double",
+        "string.quoted.single",
+        "string.quoted.triple",
+        "string.quoted.double.japy",
+        "string.quoted.single.japy",
+        "string.quoted.triple.japy"
+      ],
+      "settings": {
+        "foreground": "#CE9178"
+      }
+    },
+    {
+      "name": "Number",
+      "scope": [
+        "constant.numeric",
+        "constant.numeric.integer",
+        "constant.numeric.float",
+        "constant.numeric.integer.japy",
+        "constant.numeric.float.japy"
+      ],
+      "settings": {
+        "foreground": "#B5CEA8"
+      }
+    },
+    {
+      "name": "Function Name",
+      "scope": [
+        "entity.name.function",
+        "entity.name.function.japy"
+      ],
+      "settings": {
+        "foreground": "#DCDCAA",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "Class Name",
+      "scope": [
+        "entity.name.class",
+        "entity.name.class.japy"
+      ],
+      "settings": {
+        "foreground": "#4EC9B0",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "Operators",
+      "scope": [
+        "keyword.operator.arithmetic.japy",
+        "keyword.operator.comparison.japy",
+        "keyword.operator.assignment.japy"
+      ],
+      "settings": {
+        "foreground": "#D4D4D4"
+      }
+    }
+  ]
+}

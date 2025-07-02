@@ -1,0 +1,73 @@
+{
+  "name": "japy-language-support",
+  "displayName": "JaPy Language Support",
+  "description": "JaPy is a Python dialect in Japanese.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Zhe",
+    "email": "i@zzhe.dev"
+  },
+  "publisher": "Zhe",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/satoi8080/JaPy.git"
+  },
+  "engines": {
+    "vscode": "^1.101.2"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "japy",
+    "japanese",
+    "python",
+    "日本語",
+    "syntax highlighting",
+    "code completion",
+    "intellisense"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:japy"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "japy",
+        "aliases": [
+          "JaPy",
+          "japy"
+        ],
+        "extensions": [
+          ".japy"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "japy",
+        "scopeName": "source.japy",
+        "path": "./syntaxes/japy.tmLanguage.json"
+      }
+    ],
+    "themes": [
+      {
+        "label": "JaPy Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/japy-dark-color-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.101.0",
+    "@types/node": "22.9.0",
+    "typescript": "^5.8.3"
+  }
+}

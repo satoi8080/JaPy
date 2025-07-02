@@ -1,0 +1,35 @@
+{
+  "comments": {
+    "lineComment": "#"
+  },
+  "brackets": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"]
+  ],
+  "autoClosingPairs": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"],
+    ["\"", "\""],
+    ["'", "'"]
+  ],
+  "surroundingPairs": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"],
+    ["\"", "\""],
+    ["'", "'"]
+  ],
+  "indentationRules": {
+    "increaseIndentPattern": "^\\s*(デフ|クラス|イフ|エリフ|エルス|フォー|ホワイル|トライ|エクセプト|ファイナリー|ウィズ)\\b.*:$",
+    "decreaseIndentPattern": "^\\s*(エリフ|エルス|エクセプト|ファイナリー)\\b.*:$"
+  },
+  "wordPattern": "[\\u3040-\\u309F\\u30A0-\\u30FF\\u4E00-\\u9FAF\\w]+",
+  "folding": {
+    "markers": {
+      "start": "^\\s*#\\s*region\\b",
+      "end": "^\\s*#\\s*endregion\\b"
+    }
+  }
+}
