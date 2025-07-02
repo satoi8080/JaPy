@@ -1,6 +1,11 @@
 [project]
 name = "japy"
 version = "0.1.0"
-description = "Add your description here"
+description = "JaPy is a Python dialect in Japanese."
+authors = [
+    { name = "Zhe", email = "i@zzhe.dev" },
+]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "absl-py>=2.3.0",
+]

@@ -88,6 +88,7 @@ JAPY_BUILTINS_MAP = {
     'ネクスト': 'next',
     'エイター': 'aiter',
     'エイネクスト': 'anext',
+    'レンジ': 'range',
 
     # --- Math & Numbers ---
     'エービーエス': 'abs',
