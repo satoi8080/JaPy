@@ -1,6 +1,8 @@
 # JaPy - 日本語カタカナPython方言
 
-<img src="icon.svg" alt="JaPy Logo" width="64" height="64">
+<img src="icon.svg" alt="JaPyロゴ - 青と赤を使用した「Ja」の文字デザイン。青い「J」の中にはPythonの蛇の目を表現した二つの白い円が配置され、愛と平和の融合を象徴している" width="64" height="64">
+
+<sub><i>JaPyロゴ: aPyロゴ - 青と赤を使用した「Ja」の文字デザイン。青い「J」の中にはPythonの蛇の目を表現した二つの白い円が配置され、愛と平和の融合を象徴している</i></sub>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
@@ -194,6 +196,6 @@ MIT License - ディテールは[LICENSE](LICENSE)ファイルをリファーし
 
 ---
 
-**JaPy** - 日本語カタカナでプログラミングをエンジョイしよう！ 🇯🇵✨
+**JaPy** - 日本語カタカナでプログラミングをエンジョイしよう！
 
 ~~なんでこんなものを作ったんだろう...~~
