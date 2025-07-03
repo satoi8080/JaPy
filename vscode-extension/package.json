@@ -3,6 +3,7 @@
   "displayName": "JaPy Language Support",
   "description": "JaPy is a Python dialect in Japanese.",
   "version": "0.1.0",
+  "icon": "icon.png",
   "author": {
     "name": "Zhe",
     "email": "i@zzhe.dev"
