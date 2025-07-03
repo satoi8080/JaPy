@@ -12,9 +12,9 @@ wheels = [
 ]
 
 [[package]]
-name = "japy"
+name = "japy-lang"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "absl-py" },
 ]
