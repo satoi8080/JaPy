@@ -16,7 +16,25 @@ from absl import flags
 from absl import logging
 
 # メインのジャパイモジュールからすべての機能をインポート
-from .ジャパイ import *
+try:
+    from .ジャパイ import (
+        KEYWORDS, JAPY_KEYWORD_MAP, PYTHON_TO_JAPY_MAP,
+        BUILTIN_FUNCTIONS, BUILTIN_TYPES, ALL_BUILTINS,
+        JAPY_BUILTINS_MAP, BUILTINS_PYTHON_TO_JAPY_MAP,
+        JAPY_TRANSLATION_MAP, transpile_japy,
+        check_keywords, check_builtin_functions, check_builtin_types, check_builtins,
+        SOURCE_CODE, PYTHON_CODE
+    )
+except ImportError:
+    # Unicode文件名有问题时的fallback
+    from .core import (
+        KEYWORDS, JAPY_KEYWORD_MAP, PYTHON_TO_JAPY_MAP,
+        BUILTIN_FUNCTIONS, BUILTIN_TYPES, ALL_BUILTINS,
+        JAPY_BUILTINS_MAP, BUILTINS_PYTHON_TO_JAPY_MAP,
+        JAPY_TRANSLATION_MAP, transpile_japy,
+        check_keywords, check_builtin_functions, check_builtin_types, check_builtins,
+        SOURCE_CODE, PYTHON_CODE
+    )
 
 FLAGS = flags.FLAGS
 

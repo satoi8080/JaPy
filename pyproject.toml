@@ -1,6 +1,6 @@
 [project]
 name = "japy-lang"
-version = "0.1.0"
+version = "0.1.1"
 description = "JaPy is a Python dialect in Japanese."
 readme = "README.md"
 license = { text = "MIT" }
@@ -37,3 +37,6 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["japy"]
+
+[dependency-groups]
+dev = []
