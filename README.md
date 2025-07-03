@@ -193,6 +193,7 @@ MIT License - ディテールは[LICENSE](LICENSE)ファイルをリファーし
 ## 🔗 リンクス
 
 - [GitHub リポジトリ](https://github.com/satoi8080/JaPy)
+- [PyPI パッケージ](https://pypi.org/project/japy-lang/)
 - [VS Codeエクステンションドキュメント](vscode-extension/README.md)
 - [VS Codeエクステンションインストールガイド](vscode-extension/INSTALL.md)
 
