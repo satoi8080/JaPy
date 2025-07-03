@@ -4,6 +4,8 @@
 
 <sub><i>JaPyロゴ: aPyロゴ - 青と赤を使用した「Ja」の文字デザイン。青い「J」の中にはPythonの蛇の目を表現した二つの白い円が配置され、愛と平和の融合を象徴している</i></sub>
 
+<img src="japy/japy.png" alt="JaPy - カタカナでプログラミング" width="400">
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 
