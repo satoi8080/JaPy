@@ -13,7 +13,7 @@ wheels = [
 
 [[package]]
 name = "japy-lang"
-version = "0.1.0"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "absl-py" },
@@ -21,3 +21,6 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "absl-py", specifier = ">=2.3.0" }]
+
+[package.metadata.requires-dev]
+dev = []

@@ -16,10 +16,14 @@ JaPy - 日本語Python方言
 """
 
 # メインモジュールからすべての機能をインポート
-from .japy import *
+try:
+    from .japy import *
+except ImportError:
+     # Unicodeファイル名に問題がある場合のフォールバック
+    from .core import *
 
 # バージョン情報
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Zhe"
 __email__ = "i@zzhe.dev"
 
