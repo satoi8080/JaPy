@@ -1,6 +1,9 @@
 # VS Code用JaPy言語サポート
 
-JaPy用VS Code拡張機能 - 日本語キーワードを使用するPython方言
+[![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-blue?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=Zhe.japy-language-support)
+
+[JaPy](https://github.com/satoi8080/JaPy)用VS Code拡張機能 - 日本語キーワードを使用するPython方言
+
 
 ## 機能
 
@@ -61,7 +64,15 @@ JaPy用VS Code拡張機能 - 日本語キーワードを使用するPython方言
 
 ## インストール
 
-### VSIXから（推奨）
+### VS Code Marketplace から（推奨）
+[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Zhe.japy-language-support) から直接インストールできます：
+
+1. VS Codeを開く
+2. 拡張機能ビュー（`Ctrl+Shift+X` または `Cmd+Shift+X`）を開く
+3. "JaPy Language Support" を検索
+4. "インストール" をクリック
+
+### VSIXから
 1. `.vsix` ファイルをダウンロード
 2. VS Codeを開く
 3. `Ctrl+Shift+P`（Macでは `Cmd+Shift+P`）を押す
