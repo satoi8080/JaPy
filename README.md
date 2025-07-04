@@ -1,13 +1,27 @@
 # JaPy - 日本語カタカナPython方言
 
+<div align="center">
 <img src="icon.svg" alt="JaPyロゴ - 青と赤を使用した「Ja」の文字デザイン。青い「J」の中にはPythonの蛇の目を表現した二つの白い円が配置され、愛と平和の融合を象徴している" width="64" height="64">
 
-<sub><i>JaPyロゴ: aPyロゴ - 青と赤を使用した「Ja」の文字デザイン。青い「J」の中にはPythonの蛇の目を表現した二つの白い円が配置され、愛と平和の融合を象徴している</i></sub>
+<sub><i>JaPyロゴ - 青と赤を使用した「Ja」の文字デザイン。<br>
+青い「J」の中にはPythonの蛇の目を表現した二つの白い円が配置され、愛と平和の融合を象徴している</i></sub>
+</div>
 
-<img src="japy/japy.png" alt="JaPy - カタカナでプログラミング" width="400">
+
+<div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/japy-lang)
+[![PyPI](https://img.shields.io/badge/PyPI-japy--lang-blue?logo=pypi)](https://pypi.org/project/japy-lang/)
+![PyPI - Version](https://img.shields.io/pypi/v/japy-lang)
+[![VS Code Extension](https://img.shields.io/badge/VS%20Code-Extension-blue?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=Zhe.japy-language-support)
+
+</div>
+
+
+<div align="center">
+<img src="japy/japy.png" alt="JaPy - カタカナでプログラミング" width="400">
+</div>
 
 JaPyは日本語カタカナキーワードを使用するPythonの方言です。なぜか全部カタカナでプログラミングしたくなった時のためのツールです。Pythonの構文はそのままに、なんとなく日本語っぽくコーディングできます。
 
@@ -21,6 +35,16 @@ JaPyは日本語カタカナキーワードを使用するPythonの方言です�
 
 ## 📦 インストレーション
 
+### PyPIから（推奨）
+
+```bash
+# pipでインストール
+pip install japy-lang
+
+# または uvでインストール
+uv add japy-lang
+```
+
 ### ローカル開発版
 
 ```bash
@@ -33,6 +57,12 @@ uv sync
 ```
 
 ### VS Codeエクステンション
+
+#### VS Code Marketplaceから（推奨）
+
+[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Zhe.japy-language-support)から直接インストールできます。
+
+#### 手動ビルド・インストール
 
 まずエクステンションをビルドしてからインストール：
 
