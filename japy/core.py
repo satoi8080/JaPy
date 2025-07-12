@@ -172,6 +172,66 @@ JAPY_BUILTINS_MAP = {
 
 BUILTINS_PYTHON_TO_JAPY_MAP = {value: key for key, value in JAPY_BUILTINS_MAP.items()}
 
+# Symbol mapping dictionary - supports Japanese symbol replacement
+JAPY_SYMBOL_MAP = {
+    # --- Brackets ---
+    '（': '(',
+    '）': ')',
+    '【': '[',
+    '】': ']',
+    '｛': '{',
+    '｝': '}',
+    
+    # --- Quotes ---
+    '「': '"',
+    '」': '"',
+    '『': "'",
+    '』': "'",
+    
+    # --- Punctuation ---
+    '、': ',',
+    '。': '.',
+    '：': ':',
+    '；': ';',
+    '！': '!',
+    '？': '?',
+    '…': '...',
+    
+    # --- Operators ---
+    '＋': '+',
+    '－': '-',
+    '×': '*',
+    '÷': '/',
+    '＝': '=',
+    '＜': '<',
+    '＞': '>',
+    '％': '%',
+    '＃': '#',
+    '＠': '@',
+    '＆': '&',
+    '｜': '|',
+    '＾': '^',
+    '～': '~',
+    '￥': '\\',
+    
+    # --- Other symbols ---
+    '＿': '_',
+    '＄': '$',
+    '＊': '*',
+    '／': '/',
+    '＼': '\\',
+    '・': '.',
+}
+
+# Full-width number mapping
+JAPY_NUMBER_MAP = {
+    '０': '0', '１': '1', '２': '2', '３': '3', '４': '4',
+    '５': '5', '６': '6', '７': '7', '８': '8', '９': '9',
+}
+
+# Reverse mapping
+SYMBOL_PYTHON_TO_JAPY_MAP = {value: key for key, value in JAPY_SYMBOL_MAP.items()}
+
 
 # Check if all keywords are in JAPY_KEYWORD_MAP
 def check_keywords():
@@ -232,51 +292,35 @@ def transpile_japy(source_code: str) -> str:
     """
     Translates a JaPy source code string into an equivalent Python source string.
 
-    This function operates by replacing JaPy keywords and function names with their
-    Python equivalents. The core logic relies on two key principles:
+    This function replaces JaPy keywords, function names, numbers, and symbols with their
+    Python equivalents. The replacement is performed using regular expressions for all types.
 
-    1.  **Length-based Sorting**: To prevent incorrect partial substitutions (e.g.,
-        "インポート" becoming "inポート"), all JaPy terms are sorted from longest
-        to shortest before replacement.
-    2.  **Whole-Word Matching**: Regular expressions with word boundaries (\\b) are
-        used to ensure only complete words are replaced.
-
-    This specific version uses `typing.cast` to explicitly resolve a type
-    hinting warning that may arise when processing the output of
-    `sorted(dict.keys())`, ensuring compatibility with static analysis tools.
-
-    Args:
-        source_code (str): The input string containing the JaPy source code.
-
-    Returns:
-        str: The transpiled Python source code string.
+    1. Number replacement (full-width to ASCII)
+    2. Symbol replacement (Japanese/Full-width to ASCII)
+    3. Keyword/function replacement (longest first, word boundary)
     """
+    import re
+    from typing import cast
 
-    # 1. Extract the keys from the translation map. Note that `dict.keys()`
-    #    returns a `dict_keys` view object, not a list.
+    # 1. Replace full-width numbers with ASCII numbers
+    for japy_number, python_number in JAPY_NUMBER_MAP.items():
+        source_code = source_code.replace(japy_number, python_number)
+
+    # 2. Replace symbols (punctuation, brackets, operators, etc.)
+    # Sort by length descending to avoid partial replacement issues
+    for japy_symbol in sorted(JAPY_SYMBOL_MAP.keys(), key=len, reverse=True):
+        python_symbol = JAPY_SYMBOL_MAP[japy_symbol]
+        source_code = source_code.replace(japy_symbol, python_symbol)
+
+    # 3. Replace keywords and builtins using regex with word boundaries
     all_japy_words = JAPY_TRANSLATION_MAP.keys()
-
-    # 2. Sort the JaPy terms by length in descending order. This is the most
-    #    critical step of the algorithm. It ensures that longer words are
-    #    processed before their shorter substrings, preventing errors like
-    #    "インポート" (import) being incorrectly replaced by "inポート".
     sorted_japy_words = sorted(all_japy_words, key=len, reverse=True)
-
-    # 3. Iterate through the sorted terms and replace them in the source code.
     for word_from_list in sorted_japy_words:
-        # Explicitly cast the item to a string to satisfy the type checker.
-        # Some static analysis tools may not be able to infer that an item
-        # from `sorted(dict.keys())` is a string, which `re.escape` requires.
-        # This cast assures the type checker of the variable's type.
         japy_word = cast(str, word_from_list)
-
-        # Look up the corresponding Python term.
         python_word = JAPY_TRANSLATION_MAP[japy_word]
-
-        # Build a regex pattern for whole-word replacement. `\b` is a word
-        # boundary, and `re.escape` handles any potential special regex characters.
-        pattern = r'\b' + re.escape(japy_word) + r'\b'
-        source_code = re.sub(pattern, python_word, source_code)
+        # Use word boundary for safe replacement
+        pattern = re.compile(r'\b' + re.escape(japy_word) + r'\b')
+        source_code = pattern.sub(python_word, source_code)
 
     return source_code
 
