@@ -25,6 +25,9 @@
     },
     {
       "include": "#class-def"
+    },
+    {
+      "include": "#japanese-symbols"
     }
   ],
   "repository": {
@@ -69,8 +72,8 @@
         },
         {
           "name": "string.quoted.double.japy",
-          "begin": "\"",
-          "end": "\"",
+          "begin": "[\"「」]",
+          "end": "[\"「」]",
           "patterns": [
             {
               "name": "constant.character.escape.japy",
@@ -80,8 +83,8 @@
         },
         {
           "name": "string.quoted.single.japy",
-          "begin": "'",
-          "end": "'",
+          "begin": "['『』]",
+          "end": "['『』]",
           "patterns": [
             {
               "name": "constant.character.escape.japy",
@@ -95,11 +98,11 @@
       "patterns": [
         {
           "name": "constant.numeric.float.japy",
-          "match": "\\b\\d+\\.\\d+([eE][+-]?\\d+)?\\b"
+          "match": "\\b[0-9０-９]+\\.\\d+([eE][+-]?\\d+)?\\b"
         },
         {
           "name": "constant.numeric.integer.japy",
-          "match": "\\b\\d+\\b"
+          "match": "\\b[0-9０-９]+\\b"
         }
       ]
     },
@@ -212,6 +215,34 @@
         {
           "name": "entity.other.inherited-class.japy",
           "match": "[\\u3040-\\u309F\\u30A0-\\u30FF\\u4E00-\\u9FAF\\w]+"
+        }
+      ]
+    },
+    "japanese-symbols": {
+      "patterns": [
+        {
+          "name": "punctuation.definition.brackets.japy",
+          "match": "[（）【】｛｝]"
+        },
+        {
+          "name": "punctuation.definition.quotes.japy",
+          "match": "[「」『』]"
+        },
+        {
+          "name": "punctuation.separator.japy",
+          "match": "[、。：；！？…]"
+        },
+        {
+          "name": "keyword.operator.arithmetic.japy",
+          "match": "[＋－×÷＝＜＞％＃＠＆｜＾～￥]"
+        },
+        {
+          "name": "keyword.operator.other.japy",
+          "match": "[＿＄＊／＼・]"
+        },
+        {
+          "name": "constant.numeric.japy",
+          "match": "[０１２３４５６７８９]"
         }
       ]
     }
