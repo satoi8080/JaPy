@@ -127,15 +127,18 @@ else
         exit 0
     fi
 
-    # バージョン番号を更新（npm versionは自動的にコミットを作成）
+        # バージョン番号を更新
     print_info "バージョン番号を更新中..."
-    npm version $NEW_VERSION --no-git-tag-version --message "Bump version: $CURRENT_VERSION → $NEW_VERSION"
+    sed -i.bak "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/" package.json
+    sed -i.bak "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/" package-lock.json
 
-    # npm versionが作成した可能性のあるタグを削除（主プロジェクトとの衝突を避けるため）
-    if git tag -l "v$NEW_VERSION" | grep -q "v$NEW_VERSION"; then
-        print_info "npm versionが作成したタグ v$NEW_VERSION を削除中..."
-        git tag -d "v$NEW_VERSION" 2>/dev/null || true
-    fi
+    # バックアップファイルを削除
+    rm -f package.json.bak package-lock.json.bak
+
+    # 変更をコミット
+    print_info "バージョン変更をコミット中..."
+    git add package.json package-lock.json
+    git commit -m "Bump VS Code extension version: $CURRENT_VERSION → $NEW_VERSION"
 
     # バージョンcommit上でGitタグを作成
     print_info "Gitタグを作成中..."
@@ -174,6 +177,8 @@ if [ $? -eq 0 ]; then
     print_success "Extension packaged successfully!"
     print_info "📁 Generated files:"
     ls -la *.vsix 2>/dev/null || echo "No .vsix files found"
+
+
 
     echo ""
     print_info "🎉 Next steps:"
