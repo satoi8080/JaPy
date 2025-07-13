@@ -1,0 +1,40 @@
+repos:
+  # Local hooks for JaPy-specific checks
+  - repo: local
+    hooks:
+      - id: japy-consistency-check
+        name: JaPy consistency check
+        description: Check if core.py and ジャパイ.py are consistent
+        entry: bash -c 'diff japy/core.py japy/ジャパイ.py && echo "✅ core.py and ジャパイ.py are consistent" || (echo "❌ core.py and ジャパイ.py are inconsistent:" && diff japy/core.py japy/ジャパイ.py && exit 1)'
+        language: system
+        files: ^japy/(core\.py|ジャパイ\.py)$
+        pass_filenames: false
+
+  # Python code formatting
+  - repo: https://github.com/psf/black
+    rev: 24.1.1
+    hooks:
+      - id: black
+        language_version: python3
+        args: [--line-length=88]
+
+  # Import sorting
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: [--profile=black, --line-length=88]
+
+  # General hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-json
+      - id: debug-statements
