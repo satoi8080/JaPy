@@ -1,6 +1,6 @@
 [project]
 name = "japy-lang"
-version = "0.1.1"
+version = "0.1.2"
 description = "JaPy is a Python dialect in Japanese."
 readme = "README.md"
 license = { text = "MIT" }
@@ -21,6 +21,7 @@ classifiers = [
 requires-python = ">=3.12"
 dependencies = [
     "absl-py>=2.3.0",
+    "pre-commit>=4.2.0",
 ]
 
 [project.urls]
@@ -39,4 +40,6 @@ build-backend = "hatchling.build"
 packages = ["japy"]
 
 [dependency-groups]
-dev = []
+dev = [
+    "pre-commit>=4.2.0",
+]
