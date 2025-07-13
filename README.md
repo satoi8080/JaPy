@@ -96,7 +96,7 @@ npm install
     デフ __init__(self, 名前, 年齢):
         self.名前 = 名前
         self.年齢 = 年齢
-    
+
     デフ 自己紹介(self):
         プリント(f"私の名前は{self.名前}で、{self.年齢}歳です。")
 

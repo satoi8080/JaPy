@@ -30,7 +30,7 @@ if [ $? -eq 0 ]; then
     echo "✅ Extension packaged successfully!"
     echo "📁 Generated files:"
     ls -la *.vsix 2>/dev/null || echo "No .vsix files found"
-    
+
     echo ""
     echo "🎉 Next steps:"
     echo "1. Install the extension: code --install-extension japy-language-support-*.vsix"

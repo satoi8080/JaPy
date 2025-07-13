@@ -1,173 +1,188 @@
-import keyword
 import builtins
-import re
+import keyword
 from typing import cast
 
 KEYWORDS = keyword.kwlist
 
 JAPY_KEYWORD_MAP = {
     # --- Logical and Constants ---
-    'トゥルー': 'True',
-    'フォルス': 'False',
-    'ノン': 'None',
-
+    "トゥルー": "True",
+    "フォルス": "False",
+    "ノン": "None",
     # --- Control Flow ---
-    'イフ': 'if',
-    'エリフ': 'elif',
-    'エルス': 'else',
-    'フォー': 'for',
-    'ホワイル': 'while',
-    'ブレーク': 'break',
-    'コンティニュー': 'continue',
-
+    "イフ": "if",
+    "エリフ": "elif",
+    "エルス": "else",
+    "フォー": "for",
+    "ホワイル": "while",
+    "ブレーク": "break",
+    "コンティニュー": "continue",
     # --- Functions and Classes ---
-    'デフ': 'def',
-    'クラス': 'class',
-    'リターン': 'return',
-    'イールド': 'yield',
-    'ラムダ': 'lambda',
-
+    "デフ": "def",
+    "クラス": "class",
+    "リターン": "return",
+    "イールド": "yield",
+    "ラムダ": "lambda",
     # --- Operators ---
-    'アンド': 'and',
-    'オア': 'or',
-    'ノット': 'not',
-    'イン': 'in',
-    'イズ': 'is',
-
+    "アンド": "and",
+    "オア": "or",
+    "ノット": "not",
+    "イン": "in",
+    "イズ": "is",
     # --- Error Handling ---
-    'トライ': 'try',
-    'エクセプト': 'except',
-    'ファイナリー': 'finally',
-    'レイズ': 'raise',
-
+    "トライ": "try",
+    "エクセプト": "except",
+    "ファイナリー": "finally",
+    "レイズ": "raise",
     # --- Modules and Scope ---
-    'インポート': 'import',
-    'フロム': 'from',
-    'アズ': 'as',
-    'グローバル': 'global',
-    'ノンローカル': 'nonlocal',
-
+    "インポート": "import",
+    "フロム": "from",
+    "アズ": "as",
+    "グローバル": "global",
+    "ノンローカル": "nonlocal",
     # --- Async ---
-    'エイシンク': 'async',
-    'アウェイト': 'await',
-
+    "エイシンク": "async",
+    "アウェイト": "await",
     # --- Miscellaneous ---
-    'パス': 'pass',
-    'デル': 'del',
-    'ウィズ': 'with',
-    'アサート': 'assert',
+    "パス": "pass",
+    "デル": "del",
+    "ウィズ": "with",
+    "アサート": "assert",
 }
 
 PYTHON_TO_JAPY_MAP = {value: key for key, value in JAPY_KEYWORD_MAP.items()}
 
-BUILTIN_FUNCTIONS = sorted([name for name in dir(builtins) if not name.startswith('_') and callable(getattr(builtins, name)) and not isinstance(getattr(builtins, name), type)])
+BUILTIN_FUNCTIONS = sorted(
+    [
+        name
+        for name in dir(builtins)
+        if not name.startswith("_")
+        and callable(getattr(builtins, name))
+        and not isinstance(getattr(builtins, name), type)
+    ]
+)
 
 # Common built-in types that are frequently used as functions
-BUILTIN_TYPES = sorted([
-    'bool', 'int', 'float', 'str', 'list', 'tuple', 'dict', 'set', 'frozenset',
-    'bytes', 'bytearray', 'complex', 'enumerate', 'filter', 'map', 'range',
-    'reversed', 'slice', 'zip', 'memoryview', 'object', 'type', 'super',
-    'property', 'classmethod', 'staticmethod'
-])
+BUILTIN_TYPES = sorted(
+    [
+        "bool",
+        "int",
+        "float",
+        "str",
+        "list",
+        "tuple",
+        "dict",
+        "set",
+        "frozenset",
+        "bytes",
+        "bytearray",
+        "complex",
+        "enumerate",
+        "filter",
+        "map",
+        "range",
+        "reversed",
+        "slice",
+        "zip",
+        "memoryview",
+        "object",
+        "type",
+        "super",
+        "property",
+        "classmethod",
+        "staticmethod",
+    ]
+)
 
 # All built-in objects that should have Japanese translations
 ALL_BUILTINS = BUILTIN_FUNCTIONS + BUILTIN_TYPES
 
 JAPY_BUILTINS_MAP = {
     # --- I/O and Interaction ---
-    'プリント': 'print',
-    'インプット': 'input',
-    'ヘルプ': 'help',
-
+    "プリント": "print",
+    "インプット": "input",
+    "ヘルプ": "help",
     # --- Data Structure & Collection ---
-    'レン': 'len',
-    'サム': 'sum',
-    'マックス': 'max',
-    'ミン': 'min',
-    'ソーテッド': 'sorted',
-    'リバースド': 'reversed',
-    'ディル': 'dir',
-
+    "レン": "len",
+    "サム": "sum",
+    "マックス": "max",
+    "ミン": "min",
+    "ソーテッド": "sorted",
+    "リバースド": "reversed",
+    "ディル": "dir",
     # --- Functional / Iteration Tools ---
-    'オール': 'all',
-    'エニー': 'any',
-    'マップ': 'map',
-    'フィルター': 'filter',
-    'ジップ': 'zip',
-    'スライス': 'slice',
-    'イター': 'iter',
-    'ネクスト': 'next',
-    'エイター': 'aiter',
-    'エイネクスト': 'anext',
-    'レンジ': 'range',
-
+    "オール": "all",
+    "エニー": "any",
+    "マップ": "map",
+    "フィルター": "filter",
+    "ジップ": "zip",
+    "スライス": "slice",
+    "イター": "iter",
+    "ネクスト": "next",
+    "エイター": "aiter",
+    "エイネクスト": "anext",
+    "レンジ": "range",
     # --- Math & Numbers ---
-    'エービーエス': 'abs',
-    'パウ': 'pow',
-    'ラウンド': 'round',
-    'ディブモッド': 'divmod',
-
+    "エービーエス": "abs",
+    "パウ": "pow",
+    "ラウンド": "round",
+    "ディブモッド": "divmod",
     # --- Object & Attribute ---
-    'イズインスタンス': 'isinstance',
-    'イズサブクラス': 'issubclass',
-    'ハズアトリブ': 'hasattr',
-    'ゲットアトリブ': 'getattr',
-    'セットアトリブ': 'setattr',
-    'デルアトリブ': 'delattr',
-
+    "イズインスタンス": "isinstance",
+    "イズサブクラス": "issubclass",
+    "ハズアトリブ": "hasattr",
+    "ゲットアトリブ": "getattr",
+    "セットアトリブ": "setattr",
+    "デルアトリブ": "delattr",
     # --- Representation & Encoding ---
-    'アスキー': 'ascii',
-    'ビン': 'bin',
-    'レップ': 'repr',
-    'フォーマット': 'format',
-    'ヘックス': 'hex',
-    'オクト': 'oct',
-    'キャラ': 'chr',
-    'オーアールディー': 'ord',
-
+    "アスキー": "ascii",
+    "ビン": "bin",
+    "レップ": "repr",
+    "フォーマット": "format",
+    "ヘックス": "hex",
+    "オクト": "oct",
+    "キャラ": "chr",
+    "オーアールディー": "ord",
     # --- Other Core Functions ---
-    'コーラブル': 'callable',
-    'コンパイル': 'compile',
-    'エバル': 'eval',
-    'エグゼック': 'exec',
-    'グローバルズ': 'globals',
-    'ハッシュ': 'hash',
-    'アイディー': 'id',
-    'ローカルズ': 'locals',
-    'オープン': 'open',
-    'バーズ': 'vars',
-
+    "コーラブル": "callable",
+    "コンパイル": "compile",
+    "エバル": "eval",
+    "エグゼック": "exec",
+    "グローバルズ": "globals",
+    "ハッシュ": "hash",
+    "アイディー": "id",
+    "ローカルズ": "locals",
+    "オープン": "open",
+    "バーズ": "vars",
     # --- Built-in Types ---
-    'ブール': 'bool',
-    'イント': 'int',
-    'フロート': 'float',
-    'ストリング': 'str',
-    'リスト': 'list',
-    'タプル': 'tuple',
-    'ディクト': 'dict',
-    'セット': 'set',
-    'フローズンセット': 'frozenset',
-    'バイツ': 'bytes',
-    'バイトアレイ': 'bytearray',
-    'コンプレックス': 'complex',
-    'エニュメレート': 'enumerate',
-    'メモリビュー': 'memoryview',
-
+    "ブール": "bool",
+    "イント": "int",
+    "フロート": "float",
+    "ストリング": "str",
+    "リスト": "list",
+    "タプル": "tuple",
+    "ディクト": "dict",
+    "セット": "set",
+    "フローズンセット": "frozenset",
+    "バイツ": "bytes",
+    "バイトアレイ": "bytearray",
+    "コンプレックス": "complex",
+    "エニュメレート": "enumerate",
+    "メモリビュー": "memoryview",
     # --- Advanced Types ---
-    'オブジェクト': 'object',
-    'タイプ': 'type',
-    'スーパー': 'super',
-    'プロパティ': 'property',
-    'クラスメソッド': 'classmethod',
-    'スタティックメソッド': 'staticmethod',
-
+    "オブジェクト": "object",
+    "タイプ": "type",
+    "スーパー": "super",
+    "プロパティ": "property",
+    "クラスメソッド": "classmethod",
+    "スタティックメソッド": "staticmethod",
     # --- REPL/Environment Specific ---
-    'ブレークポイント': 'breakpoint',
-    'コピーライト': 'copyright',
-    'クレジッツ': 'credits',
-    'エグジット': 'exit',
-    'ライセンス': 'license',
-    'クイット': 'quit',
+    "ブレークポイント": "breakpoint",
+    "コピーライト": "copyright",
+    "クレジッツ": "credits",
+    "エグジット": "exit",
+    "ライセンス": "license",
+    "クイット": "quit",
 }
 
 BUILTINS_PYTHON_TO_JAPY_MAP = {value: key for key, value in JAPY_BUILTINS_MAP.items()}
@@ -175,58 +190,62 @@ BUILTINS_PYTHON_TO_JAPY_MAP = {value: key for key, value in JAPY_BUILTINS_MAP.it
 # Symbol mapping dictionary - supports Japanese symbol replacement
 JAPY_SYMBOL_MAP = {
     # --- Brackets ---
-    '（': '(',
-    '）': ')',
-    '【': '[',
-    '】': ']',
-    '｛': '{',
-    '｝': '}',
-    
+    "（": "(",
+    "）": ")",
+    "【": "[",
+    "】": "]",
+    "｛": "{",
+    "｝": "}",
     # --- Quotes ---
-    '「': '"',
-    '」': '"',
-    '『': "'",
-    '』': "'",
-    
+    "「": '"',
+    "」": '"',
+    "『": "'",
+    "』": "'",
     # --- Punctuation ---
-    '、': ',',
-    '。': '.',
-    '：': ':',
-    '；': ';',
-    '！': '!',
-    '？': '?',
-    '…': '...',
-    
+    "、": ",",
+    "。": ".",
+    "：": ":",
+    "；": ";",
+    "！": "!",
+    "？": "?",
+    "…": "...",
     # --- Operators ---
-    '＋': '+',
-    '－': '-',
-    '×': '*',
-    '÷': '/',
-    '＝': '=',
-    '＜': '<',
-    '＞': '>',
-    '％': '%',
-    '＃': '#',
-    '＠': '@',
-    '＆': '&',
-    '｜': '|',
-    '＾': '^',
-    '～': '~',
-    '￥': '\\',
-    
+    "＋": "+",
+    "－": "-",
+    "×": "*",
+    "÷": "/",
+    "＝": "=",
+    "＜": "<",
+    "＞": ">",
+    "％": "%",
+    "＃": "#",
+    "＠": "@",
+    "＆": "&",
+    "｜": "|",
+    "＾": "^",
+    "～": "~",
+    "￥": "\\",
     # --- Other symbols ---
-    '＿': '_',
-    '＄': '$',
-    '＊': '*',
-    '／': '/',
-    '＼': '\\',
-    '・': '.',
+    "＿": "_",
+    "＄": "$",
+    "＊": "*",
+    "／": "/",
+    "＼": "\\",
+    "・": ".",
 }
 
 # Full-width number mapping
 JAPY_NUMBER_MAP = {
-    '０': '0', '１': '1', '２': '2', '３': '3', '４': '4',
-    '５': '5', '６': '6', '７': '7', '８': '8', '９': '9',
+    "０": "0",
+    "１": "1",
+    "２": "2",
+    "３": "3",
+    "４": "4",
+    "５": "5",
+    "６": "6",
+    "７": "7",
+    "８": "8",
+    "９": "9",
 }
 
 # Reverse mapping
@@ -249,7 +268,9 @@ def check_builtin_functions():
             missing.append(word)
 
     if missing:
-        raise ValueError(f"Built-in functions not found in JAPY_BUILTINS_MAP: {missing}")
+        raise ValueError(
+            f"Built-in functions not found in JAPY_BUILTINS_MAP: {missing}"
+        )
     print("All built-in functions are in JAPY_BUILTINS_MAP")
 
 
@@ -319,7 +340,7 @@ def transpile_japy(source_code: str) -> str:
         japy_word = cast(str, word_from_list)
         python_word = JAPY_TRANSLATION_MAP[japy_word]
         # Use word boundary for safe replacement
-        pattern = re.compile(r'\b' + re.escape(japy_word) + r'\b')
+        pattern = re.compile(r"\b" + re.escape(japy_word) + r"\b")
         source_code = pattern.sub(python_word, source_code)
 
     return source_code
@@ -334,7 +355,7 @@ SOURCE_CODE = """
 
 PYTHON_CODE = transpile_japy(SOURCE_CODE)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     check_keywords()
     check_builtins()
     print(PYTHON_CODE)

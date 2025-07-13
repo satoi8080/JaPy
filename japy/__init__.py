@@ -19,7 +19,7 @@ JaPy - 日本語Python方言
 try:
     from .japy import *
 except ImportError:
-     # Unicodeファイル名に問題がある場合のフォールバック
+    # Unicodeファイル名に問題がある場合のフォールバック
     from .core import *
 
 # バージョン情報
@@ -30,31 +30,27 @@ __email__ = "i@zzhe.dev"
 # パッケージレベルでの主要な機能を再エクスポート
 __all__ = [
     # コア機能
-    'transpile_japy',
-
+    "transpile_japy",
     # マッピング辞書
-    'KEYWORDS',
-    'JAPY_KEYWORD_MAP',
-    'PYTHON_TO_JAPY_MAP',
-    'BUILTIN_FUNCTIONS',
-    'BUILTIN_TYPES',
-    'ALL_BUILTINS',
-    'JAPY_BUILTINS_MAP',
-    'BUILTINS_PYTHON_TO_JAPY_MAP',
-    'JAPY_TRANSLATION_MAP',
-
+    "KEYWORDS",
+    "JAPY_KEYWORD_MAP",
+    "PYTHON_TO_JAPY_MAP",
+    "BUILTIN_FUNCTIONS",
+    "BUILTIN_TYPES",
+    "ALL_BUILTINS",
+    "JAPY_BUILTINS_MAP",
+    "BUILTINS_PYTHON_TO_JAPY_MAP",
+    "JAPY_TRANSLATION_MAP",
     # 検証関数
-    'check_keywords',
-    'check_builtin_functions',
-    'check_builtin_types',
-    'check_builtins',
-
+    "check_keywords",
+    "check_builtin_functions",
+    "check_builtin_types",
+    "check_builtins",
     # 定数
-    'SOURCE_CODE',
-    'PYTHON_CODE',
-
+    "SOURCE_CODE",
+    "PYTHON_CODE",
     # メタデータ
-    '__version__',
-    '__author__',
-    '__email__',
+    "__version__",
+    "__author__",
+    "__email__",
 ]

@@ -6,5 +6,5 @@ JaPy - 日本語Python方言
 
 from .japy import cli_main
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli_main()
