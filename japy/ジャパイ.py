@@ -309,16 +309,28 @@ def check_builtins():
 JAPY_TRANSLATION_MAP = {**JAPY_KEYWORD_MAP, **JAPY_BUILTINS_MAP}
 
 
-def transpile_japy(source_code: str) -> str:
+def transpile_japy(source_code: str, strict: bool = False) -> str:
     """
     Translates a JaPy source code string into an equivalent Python source string.
 
-    This function replaces JaPy keywords, function names, numbers, and symbols with their
-    Python equivalents. The replacement is performed using regular expressions for all types.
+    Args:
+        source_code: The JaPy source code to translate
+        strict: If True, use tokenizer for more precise translation
 
-    1. Number replacement (full-width to ASCII)
-    2. Symbol replacement (Japanese/Full-width to ASCII)
-    3. Keyword/function replacement (longest first, word boundary)
+    This function replaces JaPy keywords, function names, numbers, and symbols with their
+    Python equivalents. In strict mode, it uses tokenizer to prevent mis-replacement
+    in strings and comments.
+    """
+    if strict:
+        return transpile_japy_strict(source_code)
+    else:
+        return transpile_japy_simple(source_code)
+
+
+def transpile_japy_simple(source_code: str) -> str:
+    """
+    Simple mode: Uses string replacement and regex for translation.
+    This is the original implementation using regex pattern matching.
     """
     import re
     from typing import cast
@@ -344,6 +356,56 @@ def transpile_japy(source_code: str) -> str:
         source_code = pattern.sub(python_word, source_code)
 
     return source_code
+
+
+def transpile_japy_strict(source_code: str) -> str:
+    """
+    Strict mode: Uses Python's tokenizer for more accurate code transformation.
+    Unlike the regex-based simple mode, this approach tokenizes the code first,
+    then replaces only identifiers to prevent mis-replacement in strings and comments.
+    """
+    import io
+    import tokenize
+    from typing import List
+
+    def tokenize_code(code: str) -> List[tokenize.TokenInfo]:
+        try:
+            tokens = list(tokenize.tokenize(io.BytesIO(code.encode("utf-8")).readline))
+            return tokens
+        except tokenize.TokenError:
+            return []
+
+    def detokenize(tokens: List[tokenize.TokenInfo]) -> str:
+        result = []
+        for token in tokens:
+            if token.type == tokenize.ENCODING:
+                continue
+            result.append(token.string)
+        return "".join(result)
+
+    # Handle number and symbol replacements first (safe to do before tokenization)
+    for japy_number, python_number in JAPY_NUMBER_MAP.items():
+        source_code = source_code.replace(japy_number, python_number)
+    for japy_symbol in sorted(JAPY_SYMBOL_MAP.keys(), key=len, reverse=True):
+        python_symbol = JAPY_SYMBOL_MAP[japy_symbol]
+        source_code = source_code.replace(japy_symbol, python_symbol)
+
+    tokens = tokenize_code(source_code)
+    if not tokens:
+        return transpile_japy_simple(source_code)
+
+    processed_tokens = []
+    for token in tokens:
+        if token.type == tokenize.NAME:
+            if token.string in JAPY_TRANSLATION_MAP:
+                processed_tokens.append(
+                    token._replace(string=JAPY_TRANSLATION_MAP[token.string])
+                )
+            else:
+                processed_tokens.append(token)
+        else:
+            processed_tokens.append(token)
+    return detokenize(processed_tokens)
 
 
 SOURCE_CODE = """

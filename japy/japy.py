@@ -64,6 +64,9 @@ flags.DEFINE_boolean("execute", False, "トランスパイルされたPythonコ�
 flags.DEFINE_boolean("show", True, "トランスパイルされたPythonコードを表示")
 flags.DEFINE_boolean("validate", False, "キーワードと組み込み関数のマッピングを検証")
 flags.DEFINE_boolean("debug", False, "デバッグ出力を有効化")
+flags.DEFINE_boolean(
+    "strict", False, "ストリクトモード：tokenizerでより正確なコード変換を行う"
+)
 
 # inputはmain()で条件付きで必須としてマークされます
 
@@ -127,7 +130,11 @@ def main(argv):
 
     # コードをトランスパイル
     try:
-        python_code = transpile_japy(japy_code)
+        python_code = transpile_japy(japy_code, strict=FLAGS.strict)
+        if FLAGS.strict:
+            logging.info("ストリクトモード：tokenizerで正確に変換します")
+        else:
+            logging.debug("簡易モード（regex）で変換します")
         logging.debug("トランスパイルが正常に完了しました")
     except Exception as e:
         logging.error("トランスパイルに失敗しました: %s", e)

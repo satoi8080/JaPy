@@ -7,6 +7,8 @@
 # minor: マイナーバージョンアップ (0.1.1 → 0.2.0)
 # major: メジャーバージョンアップ (0.1.1 → 1.0.0)
 # tag:   現在のバージョンにタグのみ追加
+#
+# 注意: このスクリプトはuvを使用してuv.lockファイルを自動更新します
 
 set -e  # エラーが発生したら即座に終了
 
@@ -55,6 +57,12 @@ fi
 # gitリポジトリかどうかをチェック
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
     print_error "現在のディレクトリはgitリポジトリではありません"
+    exit 1
+fi
+
+# uvコマンドが利用可能かチェック
+if ! command -v uv > /dev/null 2>&1; then
+    print_error "uvコマンドが見つかりません。uvをインストールしてください: https://docs.astral.sh/uv/getting-started/installation/"
     exit 1
 fi
 
@@ -161,6 +169,10 @@ sed -i.bak "s/__version__ = \"$CURRENT_VERSION\"/__version__ = \"$NEW_VERSION\"/
 # バックアップファイルを削除
 rm -f pyproject.toml.bak japy/__init__.py.bak
 
+# uv.lockファイルを更新（pyproject.tomlの変更を反映）
+print_info "uv.lockファイルを更新中..."
+uv sync
+
 # ビルドファイルを削除
 print_info "ビルドファイルを削除中..."
 rm -rf dist/ build/ *.egg-info/
@@ -175,7 +187,7 @@ twine check dist/*
 
 # 変更をコミット
 print_info "バージョン変更をコミット中..."
-git add pyproject.toml japy/__init__.py
+git add pyproject.toml japy/__init__.py uv.lock
 git commit -m "Bump version: $CURRENT_VERSION → $NEW_VERSION"
 
 # Gitタグを作成

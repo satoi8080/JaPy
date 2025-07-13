@@ -122,6 +122,12 @@ uv run python -m japy --input=hello.japy --show
 # トランスパイルリザルトを表示しない
 uv run python -m japy --input=hello.japy --show=false
 
+# ストリクトモードでトランスパイル（tokenizer使用）
+uv run python -m japy --input=hello.japy --strict
+
+# ストリクトモードでトランスパイルして実行
+uv run python -m japy --input=hello.japy --strict --execute
+
 # キーワードマッピングをバリデート
 uv run python -m japy --validate
 
@@ -137,6 +143,7 @@ uv run python -m japy --input=hello.japy --execute --debug
 - `--output`: 出力Pythonファイル（指定しない場合は標準出力）
 - `--execute`: トランスパイルされたPythonコードを実行
 - `--show`: トランスパイルされたPythonコードを表示（デフォルト: true）
+- `--strict`: ストリクトモード：tokenizerを使用してより正確なコード変換を行う
 - `--validate`: キーワードと組み込み関数のマッピングを検証
 - `--debug`: デバッグ出力を有効化
 
@@ -173,6 +180,42 @@ print(python_code)
 exec(python_code)
 ```
 
+### ストリクトモード（Strict Mode）
+
+JaPyは2つの変換モードを提供しています：
+
+#### 簡易モード（デフォルト）
+- 文字列置換と正規表現（regex）を使用
+- 高速でシンプルな変換
+- 文字列やコメント内の日本語キーワードも置換される可能性があります
+
+#### ストリクトモード（`--strict`）
+- Pythonのtokenizerを使用
+- より正確で安全な変換
+- 文字列やコメント内の日本語キーワードを保護
+- コードの構造を理解して適切に変換
+
+**使用例：**
+
+```japy
+# test.japy
+デフ テスト関数():
+    メッセージ = "これはプリントという文字列です"  # このプリントは置換されません
+    プリント(メッセージ)  # このプリントはprintに置換されます
+```
+
+**変換結果の違い：**
+
+```bash
+# 簡易モード（デフォルト）
+uv run python -m japy --input=test.japy --show
+# 結果: 文字列内の"プリント"も"print"に置換される
+
+# 厳格モード
+uv run python -m japy --input=test.japy --show --strict
+# 結果: 文字列内の"プリント"は保護され、コード内の"プリント"のみ置換される
+```
+
 ## 📚 ランゲージリファレンス
 
 サポートされているキーワード、ビルトイン関数、ビルトイン型のコンプリートなリストは、[japy/ジャパイ.py](japy/ジャパイ.py)のソースコードをリファーしてください。
@@ -191,6 +234,9 @@ exec(python_code)
 ```bash
 # サンプルJaPyファイルをラン
 uv run python -m japy --input=japy/ジャパイ.japy --execute
+
+# ストリクトモードでテスト
+uv run python -m japy --input=test_strict_mode.japy --show --strict
 
 # キーワードマッピングをバリデート
 uv run python -m japy --validate
