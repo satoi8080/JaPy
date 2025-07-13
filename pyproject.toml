@@ -1,6 +1,6 @@
 [project]
 name = "japy-lang"
-version = "0.1.2"
+version = "0.1.3"
 description = "JaPy is a Python dialect in Japanese."
 readme = "README.md"
 license = { text = "MIT" }
