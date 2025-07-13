@@ -1,7 +1,7 @@
 # JaPy - 日本語カタカナPython方言
 
 <div align="center">
-<img src="icon.svg" alt="JaPyロゴ - 青と赤を使用した「Ja」の文字デザイン。青い「J」の中にはPythonの蛇の目を表現した二つの白い円が配置され、愛と平和の融合を象徴している" width="64" height="64">
+<img src="https://raw.githubusercontent.com/satoi8080/JaPy/main/icon.svg" alt="JaPyロゴ - 青と赤を使用した「Ja」の文字デザイン。青い「J」の中にはPythonの蛇の目を表現した二つの白い円が配置され、愛と平和の融合を象徴している" width="64" height="64">
 
 <sub><i>JaPyロゴ - 青と赤を使用した「Ja」の文字デザイン。<br>
 青い「J」の中にはPythonの蛇の目を表現した二つの白い円が配置され、愛と平和の融合を象徴している</i></sub>
@@ -20,7 +20,7 @@
 
 
 <div align="center">
-<img src="japy/japy.png" alt="JaPy - カタカナでプログラミング" width="400">
+<img src="https://raw.githubusercontent.com/satoi8080/JaPy/main/japy/japy.png" alt="JaPy - カタカナでプログラミング" width="400">
 </div>
 
 JaPyは日本語カタカナキーワードを使用するPythonの方言です。なぜか全部カタカナでプログラミングしたくなった時のためのツールです。Pythonの構文はそのままに、なんとなく日本語っぽくコーディングできます。

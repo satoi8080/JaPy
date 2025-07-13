@@ -221,3 +221,5 @@ esac
 print_success "🎉 リリースフローが完了しました！"
 print_info "新しいバージョン: $NEW_VERSION"
 print_info "Gitタグ: v$NEW_VERSION"
+
+exit 0
