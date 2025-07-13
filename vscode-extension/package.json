@@ -2,7 +2,7 @@
   "name": "japy-language-support",
   "displayName": "JaPy - Japanese Python Dialect",
   "description": "JaPy (ジャパイ) - Write Python code using Japanese katakana keywords. Complete syntax highlighting, IntelliSense, and code completion for the Japanese Python dialect.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "icon": "icon.png",
   "author": {
     "name": "Zhe",

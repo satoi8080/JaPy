@@ -137,11 +137,11 @@ else
         git tag -d "v$NEW_VERSION" 2>/dev/null || true
     fi
 
-    # Gitタグを作成
+    # バージョンcommit上でGitタグを作成
     print_info "Gitタグを作成中..."
     git tag -a "vscode-v$NEW_VERSION" -m "Release VS Code extension version $NEW_VERSION"
 
-    # リモートにプッシュ
+    # まず分支をpush、その後tagをpush
     print_info "リモートリポジトリにプッシュ中..."
     git push origin $CURRENT_BRANCH
     git push origin "vscode-v$NEW_VERSION"
