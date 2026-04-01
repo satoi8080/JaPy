@@ -5,7 +5,7 @@ description = "JaPy is a Python dialect in Japanese."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "Zhe", email = "i@zzhe.dev" },
+    { name = "Akira", email = "i@arsk.dev" },
 ]
 keywords = ["japanese", "python", "transpiler", "katakana", "programming-language"]
 classifiers = [
