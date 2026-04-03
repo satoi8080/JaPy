@@ -8,7 +8,16 @@
 # major: メジャーバージョンアップ (0.1.1 → 1.0.0)
 # tag:   現在のバージョンにタグのみ追加
 #
-# 注意: このスクリプトはuvを使用してuv.lockファイルを自動更新します
+# このスクリプトは以下の処理を順番に実行します:
+#   1. pyproject.toml のバージョン番号を更新
+#   2. uv sync で uv.lock を更新
+#   3. パッケージをビルド (uv build)
+#   4. 変更をコミットして Git タグを作成
+#   5. リモートにプッシュ
+#   6. TestPyPI または PyPI に公開（選択式）
+#
+# 前提条件: uv, twine がインストール済みであること
+# 注意: main/master ブランチ以外から実行する場合は確認プロンプトが表示されます
 
 set -e  # エラーが発生したら即座に終了
 
@@ -123,7 +132,7 @@ fi
 
 # 最新のコードを取得
 print_info "最新のコードを取得中..."
-git pull origin $CURRENT_BRANCH
+git pull origin "$CURRENT_BRANCH"
 
 print_info "現在のバージョン: $CURRENT_VERSION"
 
@@ -164,10 +173,9 @@ fi
 # バージョン番号を更新
 print_info "バージョン番号を更新中..."
 sed -i.bak "s/version = \"$CURRENT_VERSION\"/version = \"$NEW_VERSION\"/" pyproject.toml
-sed -i.bak "s/__version__ = \"$CURRENT_VERSION\"/__version__ = \"$NEW_VERSION\"/" japy/__init__.py
 
 # バックアップファイルを削除
-rm -f pyproject.toml.bak japy/__init__.py.bak
+rm -f pyproject.toml.bak
 
 # uv.lockファイルを更新（pyproject.tomlの変更を反映）
 print_info "uv.lockファイルを更新中..."
@@ -175,7 +183,7 @@ uv sync
 
 # ビルドファイルを削除
 print_info "ビルドファイルを削除中..."
-rm -rf dist/ build/ *.egg-info/
+rm -rf dist/ build/ ./*.egg-info/
 
 # パッケージをビルド
 print_info "パッケージをビルド中..."
@@ -187,7 +195,7 @@ twine check dist/*
 
 # 変更をコミット
 print_info "バージョン変更をコミット中..."
-git add pyproject.toml japy/__init__.py uv.lock
+git add pyproject.toml uv.lock
 git commit -m "Bump version: $CURRENT_VERSION → $NEW_VERSION"
 
 # Gitタグを作成
@@ -196,7 +204,7 @@ git tag -a "v$NEW_VERSION" -m "Release version $NEW_VERSION"
 
 # リモートにプッシュ
 print_info "リモートリポジトリにプッシュ中..."
-git push origin $CURRENT_BRANCH
+git push origin "$CURRENT_BRANCH"
 git push origin "v$NEW_VERSION"
 
 print_success "バージョン $NEW_VERSION の準備が完了しました！"

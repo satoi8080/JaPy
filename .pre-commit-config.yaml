@@ -2,12 +2,12 @@ repos:
   # Local hooks for JaPy-specific checks
   - repo: local
     hooks:
-      - id: japy-consistency-check
-        name: JaPy consistency check
-        description: Check if core.py and ジャパイ.py are consistent
-        entry: bash -c 'diff japy/core.py japy/ジャパイ.py && echo "✅ core.py and ジャパイ.py are consistent" || (echo "❌ core.py and ジャパイ.py are inconsistent:" && diff japy/core.py japy/ジャパイ.py && exit 1)'
+      - id: japy-validate
+        name: JaPy validate keyword and builtin mappings
+        description: Validate that all Python keywords and builtins have JaPy mappings
+        entry: uv run python -m japy --validate
         language: system
-        files: ^japy/(core\.py|ジャパイ\.py)$
+        files: ^japy/ジャパイ\.py$
         pass_filenames: false
 
   # Python code formatting

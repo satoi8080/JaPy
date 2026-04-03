@@ -1,12 +1,7 @@
 """
-JaPy - 日本語Python方言
+JaPy - コマンドラインインターフェース
 
-このモジュールはジャパイ.pyのエイリアスとして機能し、
-ASCIIファイル名を好むユーザーに日本語Python方言機能への
-簡単なアクセスを提供します。
-
-すべての機能はメインのジャパイモジュールからインポートされます。
-さらに、このモジュールはコマンドライン インターフェース機能を提供します。
+`python -m japy` および `japy` コマンドのエントリーポイント。
 """
 
 import sys
@@ -14,50 +9,10 @@ from pathlib import Path
 
 from absl import app, flags, logging
 
-# メインのジャパイモジュールからすべての機能をインポート
-try:
-    from .ジャパイ import (
-        ALL_BUILTINS,
-        BUILTIN_FUNCTIONS,
-        BUILTIN_TYPES,
-        BUILTINS_PYTHON_TO_JAPY_MAP,
-        JAPY_BUILTINS_MAP,
-        JAPY_KEYWORD_MAP,
-        JAPY_TRANSLATION_MAP,
-        KEYWORDS,
-        PYTHON_CODE,
-        PYTHON_TO_JAPY_MAP,
-        SOURCE_CODE,
-        check_builtin_functions,
-        check_builtin_types,
-        check_builtins,
-        check_keywords,
-        transpile_japy,
-    )
-except ImportError:
-    # Unicodeファイル名に問題がある場合のフォールバック
-    from .core import (
-        ALL_BUILTINS,
-        BUILTIN_FUNCTIONS,
-        BUILTIN_TYPES,
-        BUILTINS_PYTHON_TO_JAPY_MAP,
-        JAPY_BUILTINS_MAP,
-        JAPY_KEYWORD_MAP,
-        JAPY_TRANSLATION_MAP,
-        KEYWORDS,
-        PYTHON_CODE,
-        PYTHON_TO_JAPY_MAP,
-        SOURCE_CODE,
-        check_builtin_functions,
-        check_builtin_types,
-        check_builtins,
-        check_keywords,
-        transpile_japy,
-    )
+from .ジャパイ import check_builtins, check_keywords, transpile_japy
 
 FLAGS = flags.FLAGS
 
-# コマンドラインフラグを定義
 flags.DEFINE_string("input", None, "トランスパイルする.japyファイル")
 flags.DEFINE_string("output", None, "出力Pythonファイル（デフォルト: 元ファイル名.py）")
 flags.DEFINE_boolean("execute", False, "トランスパイルされたPythonコードを実行")
@@ -68,28 +23,6 @@ flags.DEFINE_boolean(
     "strict", False, "ストリクトモード：tokenizerでより正確なコード変換を行う"
 )
 
-# inputはmain()で条件付きで必須としてマークされます
-
-# 明確性のためにメインコンポーネントを明示的に再エクスポート
-__all__ = [
-    "KEYWORDS",
-    "JAPY_KEYWORD_MAP",
-    "PYTHON_TO_JAPY_MAP",
-    "BUILTIN_FUNCTIONS",
-    "BUILTIN_TYPES",
-    "ALL_BUILTINS",
-    "JAPY_BUILTINS_MAP",
-    "BUILTINS_PYTHON_TO_JAPY_MAP",
-    "JAPY_TRANSLATION_MAP",
-    "transpile_japy",
-    "check_keywords",
-    "check_builtin_functions",
-    "check_builtin_types",
-    "check_builtins",
-    "SOURCE_CODE",
-    "PYTHON_CODE",
-]
-
 
 def main(argv):
     """コマンドラインインターフェースのメイン関数。"""
@@ -98,7 +31,6 @@ def main(argv):
         logging.debug("デバッグモードが有効になりました")
         logging.debug("非フラグ引数: %s", argv)
 
-    # 検証モード
     if FLAGS.validate:
         logging.info("キーワードと組み込み関数のマッピングを検証中...")
         try:
@@ -110,7 +42,6 @@ def main(argv):
             sys.exit(1)
         return
 
-    # 入力ファイルを読み込み（非検証モードでは必須）
     if not FLAGS.input:
         logging.error("入力ファイルが必要です（--input=<ファイル>を使用してください）")
         sys.exit(1)
@@ -128,7 +59,6 @@ def main(argv):
         logging.error("入力ファイルの読み込みに失敗しました: %s", e)
         sys.exit(1)
 
-    # コードをトランスパイル
     try:
         python_code = transpile_japy(japy_code, strict=FLAGS.strict)
         if FLAGS.strict:
@@ -140,9 +70,7 @@ def main(argv):
         logging.error("トランスパイルに失敗しました: %s", e)
         sys.exit(1)
 
-    # トランスパイルされたコードを出力
     if FLAGS.output:
-        # ファイルに書き込み
         try:
             with open(FLAGS.output, "w", encoding="utf-8") as f:
                 f.write(python_code)
@@ -151,11 +79,9 @@ def main(argv):
             logging.error("出力ファイルの書き込みに失敗しました: %s", e)
             sys.exit(1)
     elif FLAGS.show:
-        # 標準出力に印刷
         print("# トランスパイルされたPythonコード:")
         print(python_code)
 
-    # トランスパイルされたコードを実行
     if FLAGS.execute:
         logging.info("トランスパイルされたコードを実行中...")
         try:
@@ -168,7 +94,3 @@ def main(argv):
 def cli_main():
     """コマンドライン用のエントリーポイント。"""
     app.run(main)
-
-
-if __name__ == "__main__":
-    cli_main()

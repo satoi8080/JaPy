@@ -333,7 +333,6 @@ def transpile_japy_simple(source_code: str) -> str:
     This is the original implementation using regex pattern matching.
     """
     import re
-    from typing import cast
 
     # 1. Replace full-width numbers with ASCII numbers
     for japy_number, python_number in JAPY_NUMBER_MAP.items():
@@ -414,11 +413,9 @@ SOURCE_CODE = """
 メイン()
 """
 
-
-PYTHON_CODE = transpile_japy(SOURCE_CODE)
-
 if __name__ == "__main__":
     check_keywords()
     check_builtins()
-    print(PYTHON_CODE)
-    exec(PYTHON_CODE)
+    python_code = transpile_japy(SOURCE_CODE)
+    print(python_code)
+    exec(python_code)

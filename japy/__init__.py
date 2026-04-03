@@ -15,23 +15,33 @@ JaPy - 日本語Python方言
     japy.check_builtins()
 """
 
-# メインモジュールからすべての機能をインポート
+from importlib.metadata import PackageNotFoundError, version
+
+from .ジャパイ import (
+    ALL_BUILTINS,
+    BUILTIN_FUNCTIONS,
+    BUILTIN_TYPES,
+    BUILTINS_PYTHON_TO_JAPY_MAP,
+    JAPY_BUILTINS_MAP,
+    JAPY_KEYWORD_MAP,
+    JAPY_TRANSLATION_MAP,
+    KEYWORDS,
+    PYTHON_TO_JAPY_MAP,
+    SOURCE_CODE,
+    check_builtin_functions,
+    check_builtin_types,
+    check_builtins,
+    check_keywords,
+    transpile_japy,
+)
+
 try:
-    from .japy import *
-except ImportError:
-    # Unicodeファイル名に問題がある場合のフォールバック
-    from .core import *
+    __version__ = version("japy-lang")
+except PackageNotFoundError:
+    __version__ = "unknown"
 
-# バージョン情報
-__version__ = "0.1.1"
-__author__ = "Zhe"
-__email__ = "i@zzhe.dev"
-
-# パッケージレベルでの主要な機能を再エクスポート
 __all__ = [
-    # コア機能
     "transpile_japy",
-    # マッピング辞書
     "KEYWORDS",
     "JAPY_KEYWORD_MAP",
     "PYTHON_TO_JAPY_MAP",
@@ -41,16 +51,10 @@ __all__ = [
     "JAPY_BUILTINS_MAP",
     "BUILTINS_PYTHON_TO_JAPY_MAP",
     "JAPY_TRANSLATION_MAP",
-    # 検証関数
     "check_keywords",
     "check_builtin_functions",
     "check_builtin_types",
     "check_builtins",
-    # 定数
     "SOURCE_CODE",
-    "PYTHON_CODE",
-    # メタデータ
     "__version__",
-    "__author__",
-    "__email__",
 ]
