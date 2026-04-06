@@ -3,10 +3,10 @@
 # JaPy VS Code Extension Build Script
 # 使用方法: ./build.sh [patch|minor|major|build]
 #
-# patch: パッチバージョンアップ (0.1.1 → 0.1.2)
-# minor: マイナーバージョンアップ (0.1.1 → 0.2.0)
-# major: メジャーバージョンアップ (0.1.1 → 1.0.0)
-# build: 現在のバージョンでビルドのみ実行
+# patch: パッチバージョンアップ (0.1.1 → 0.1.2) + git commit/tag/push
+# minor: マイナーバージョンアップ (0.1.1 → 0.2.0) + git commit/tag/push
+# major: メジャーバージョンアップ (0.1.1 → 1.0.0) + git commit/tag/push
+# build: 現在のバージョンでビルドのみ実行 (git操作なし)
 
 set -e  # エラーが発生したら即座に終了
 
