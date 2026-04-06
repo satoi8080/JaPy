@@ -2,97 +2,30 @@
 
 [![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-blue?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=Zhe.japy-language-support)
 
-[JaPy](https://github.com/satoi8080/JaPy)用VS Code拡張機能 - 日本語キーワードを使用するPython方言
-
+[JaPy](https://github.com/satoi8080/JaPy)用VS Code拡張機能 - 日本語キーワードを使用するPython方言（`.japy`ファイル対応）
 
 ## 機能
 
-- **シンタックスハイライト**: JaPyファイル（`.japy`）の完全なシンタックスハイライト
-- **コード補完**: JaPyキーワード、組み込み関数、型のIntelliSenseサポート
+- **シンタックスハイライト**: JaPyキーワード・組み込み関数・型の完全なハイライト
+- **コード補完**: キーワード・関数・型のIntelliSenseサポート（関数は自動で括弧 `()` を挿入）
 - **言語設定**: 自動インデント、括弧マッチング、コメントトグル
 - **カスタムテーマ**: 日本語キーワードに最適化されたJaPy Darkテーマ
 - **Unicode対応**: 識別子での日本語文字の適切な処理
 
-## サポートされるファイル拡張子
-
-- `.japy` - JaPyソースファイル
-
-## シンタックスハイライト
-
-この拡張機能は以下のシンタックスハイライトを提供します：
-
-### キーワード
-- **制御フロー**: イフ, エリフ, エルス, フォー, ホワイル, ブレーク, コンティニュー
-- **関数**: デフ, リターン, イールド, ラムダ
-- **クラス**: クラス
-- **論理**: アンド, オア, ノット, イン, イズ
-- **例外**: トライ, エクセプト, ファイナリー, レイズ
-- **モジュール**: インポート, フロム, アズ
-- **定数**: トゥルー, フォルス, ノン
-
-### 組み込み関数
-- **入出力**: プリント, インプット, ヘルプ
-- **コレクション**: レン, サム, マックス, ミン, ソーテッド
-- **数学**: エービーエス, パウ, ラウンド
-- **その他多数...
-
-### 組み込み型
-- **基本型**: ブール, イント, フロート, ストリング
-- **コレクション**: リスト, タプル, ディクト, セット
-- **高度な型**: オブジェクト, タイプ, スーパー
-
-## コード補完
-
-この拡張機能は以下のインテリジェントなコード補完を提供します：
-
-### 自動補完機能
-- **キーワード**: コンテキストに応じた提案を含むすべてのJaPyキーワード
-- **組み込み関数**: 関数は自動的に括弧 `()` を含む
-- **組み込み型**: 型コンストラクタとクラス名
-- **スマートトリガー**: タイピング、スペース、または `Ctrl+Space` で補完をトリガー
-
-### 使用方法
-1. JaPyキーワードまたは関数名の入力を開始
-2. `Ctrl+Space`（Macでは `Cmd+Space`）を押して手動補完
-3. 矢印キーで提案をナビゲート
-4. `Enter` または `Tab` を押して提案を受け入れ
-
-### 例
-- `デフ` と入力 → 関数定義を提案
-- `プリント` と入力 → `プリント()` を提案（カーソルは括弧内）
-- `イフ` と入力 → if文の構造を提案
-
 ## インストール
 
 ### VS Code Marketplace から（推奨）
-[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Zhe.japy-language-support) から直接インストールできます：
+[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Zhe.japy-language-support) から直接インストール：
 
 1. VS Codeを開く
-2. 拡張機能ビュー（`Ctrl+Shift+X` または `Cmd+Shift+X`）を開く
-3. "JaPy Language Support" を検索
-4. "インストール" をクリック
+2. 拡張機能ビュー（`Ctrl+Shift+X` / `Cmd+Shift+X`）を開く
+3. "JaPy Language Support" を検索して "インストール" をクリック
 
 ### VSIXから
 1. `.vsix` ファイルをダウンロード
-2. VS Codeを開く
-3. `Ctrl+Shift+P`（Macでは `Cmd+Shift+P`）を押す
-4. "Extensions: Install from VSIX" と入力
-5. ダウンロードした `.vsix` ファイルを選択
+2. `Ctrl+Shift+P`（`Cmd+Shift+P`）→ "Extensions: Install from VSIX" → ファイルを選択
 
-### 手動インストール
-1. 拡張機能フォルダをVS Codeの拡張機能ディレクトリにコピー：
-   - **Windows**: `%USERPROFILE%\.vscode\extensions\`
-   - **macOS**: `~/.vscode/extensions/`
-   - **Linux**: `~/.vscode/extensions/`
-2. VS Codeを再起動
-
-## 使用方法
-
-1. `.japy` 拡張子で新しいファイルを作成
-2. JaPyコードの記述を開始
-3. シンタックスハイライトとコード補完をお楽しみください！
-
-### JaPyコードの例
+## 使用例
 
 ```japy
 # JaPy サンプルコード
@@ -108,25 +41,12 @@
     デフ 自己紹介(self):
         プリント(f"私の名前は{self.名前}で、{self.年齢}歳です。")
 
-# メイン実行
 イフ __name__ == "__main__":
     人物 = 人("田中", 25)
     人物.自己紹介()
     挨拶(人物.名前)
 ```
 
-## テーマ
-
-この拡張機能には、日本語キーワードに最適化されたカスタム「JaPy Dark」テーマが含まれており、異なる言語要素に対して明確な色分けを提供します。
-
-## 貢献
-
-イシューやプルリクエストを送信して、この拡張機能への貢献をお気軽にどうぞ。
-
 ## ライセンス
 
 MIT License
-
-## その他
-
-JaPyの詳細については、こちらをご覧ください：[JaPyリポジトリ](https://github.com/satoi8080/JaPy)

@@ -59,26 +59,6 @@ code --install-extension japy-language-support-*.vsix
 1. 新しいファイルを作成し、`.japy` 拡張子で保存
 2. JaPyコードを書いて構文ハイライトとコード補完を確認
 
-```japy
-デフ テスト():
-    プリント("こんにちは、JaPy！")
-    リターン トゥルー
-
-テスト()
-```
-
-#### コード補完のテスト
-1. `.japy` ファイルで以下を入力してみてください：
-   - `デフ` と入力 → 関数定義の補完が表示される
-   - `プリント` と入力 → print関数の補完が表示される
-   - `イフ` と入力 → if文の補完が表示される
-   - `Ctrl+Space` (Mac: `Cmd+Space`) で手動補完を起動
-
-2. 補完機能には以下が含まれます：
-   - **キーワード**: イフ、エリフ、デフ、クラス など
-   - **組み込み関数**: プリント、レン、マックス など
-   - **組み込み型**: ストリング、リスト、ディクト など
-
 ## トラブルシューティング
 
 ### 問題: vsce が見つからない
@@ -114,12 +94,6 @@ export PATH=~/.npm-global/bin:$PATH
 
 ## 開発者向け
 
-### 拡張機能の更新
-1. ソースコードを修正
-2. `package.json` のバージョンを更新
-3. 再ビルド: `./build.sh`
-4. 再インストール
-
 ### マーケットプレイスへの公開
 ```bash
 # 初回公開
@@ -135,27 +109,3 @@ vsce publish major  # 1.0.0 -> 2.0.0
 1. VS Codeで拡張機能フォルダを開く
 2. `F5` を押して新しいExtension Development Hostを起動
 3. 新しいウィンドウで `.japy` ファイルをテスト
-
-## ファイル構造
-
-```
-vscode-extension/
-├── package.json                    # 拡張機能の設定
-├── tsconfig.json                   # TypeScript設定
-├── language-configuration.json     # 言語設定
-├── src/                            # TypeScriptソースコード
-│   ├── extension.ts                # メイン拡張機能ロジック
-│   └── completionProvider.ts       # コード補完プロバイダー
-├── out/                            # コンパイル済みJavaScript
-├── syntaxes/
-│   └── japy.tmLanguage.json        # 構文定義
-├── themes/
-│   └── japy-dark-color-theme.json  # カラーテーマ
-├── build.sh                        # ビルドスクリプト
-├── README.md                       # 説明書
-└── INSTALL.md                      # このファイル
-```
-
-## サポート
-
-問題や質問がある場合は、GitHubのIssuesページで報告してください。
